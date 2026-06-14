@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="ta">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>தமிழாக்கம் | Standalone Client</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        tamilBlue: "#1d4ed8",
+                        templeGold: "#f59e0b",
+                        lotusPink: "#ec4899",
+                        palmGreen: "#16a34a",
+                        deepMaroon: "#8b1e3f"
+                    },
+                    fontFamily: {
+                        sans: ["Inter", "Noto Sans Tamil", "ui-sans-serif", "system-ui"],
+                        tamil: ["Noto Sans Tamil", "Latha", "sans-serif"]
+                    }
+                }
+            }
+        };
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+Tamil:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #fafafa;
+            background-image: 
+                radial-gradient(at 0% 0%, hsla(339, 49%, 97%, 1) 0, transparent 40%), 
+                radial-gradient(at 50% 0%, hsla(27, 73%, 97%, 1) 0, transparent 50%), 
+                radial-gradient(at 100% 0%, hsla(206, 62%, 96%, 1) 0, transparent 40%);
+            background-attachment: fixed;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            border-radius: 24px;
+            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.04);
+        }
+        .brand-mark {
+            background: linear-gradient(135deg, #8b1e3f 0%, #ec4899 100%);
+            color: white;
+            font-family: 'Noto Sans Tamil', sans-serif;
+            font-weight: 800;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 44px;
+            height: 44px;
+            border-radius: 14px;
+            box-shadow: 0 4px 12px rgba(139, 30, 63, 0.2);
+        }
+        .upload-zone {
+            border: 2px dashed rgba(139, 30, 63, 0.15);
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+        .upload-zone:hover, .upload-zone.drag-active {
+            border-color: #8b1e3f;
+            background-color: rgba(139, 30, 63, 0.02);
+        }
+    </style>
+</head>
+<body class="min-h-screen text-slate-900 font-sans">
+    <nav class="sticky top-0 z-50 border-b border-white/60 bg-white/70 shadow-sm backdrop-blur-xl">
+        <div class="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 lg:px-8">
+            <div class="flex items-center gap-3">
+                <span class="brand-mark text-lg">த</span>
+                <span>
+                    <span class="block text-lg font-extrabold text-slate-900 tracking-tight">தமிழாக்கம்</span>
+                    <span class="block text-xs font-bold text-deepMaroon uppercase tracking-wider">Standalone Web Client</span>
+                </span>
+            </div>
+            <div class="text-xs font-bold text-slate-500 bg-white/80 border border-slate-100 px-3 py-1.5 rounded-full shadow-sm">
+                ⚡ 100% Serverless & Client-Side OCR
+            </div>
+        </div>
+    </nav>
+
+    <main class="mx-auto max-w-7xl px-5 py-10 lg:px-8">
+        <div class="mb-10 text-center">
+            <h1 class="text-4xl font-extrabold text-slate-900 tracking-tight sm:text-5xl">Tanglish to Tamil Transliteration</h1>
+            <p class="mx-auto mt-4 max-w-2xl text-lg font-medium leading-relaxed text-slate-600">
+                A simple and lightweight client application. Transliterate Tanglish text to Unicode Tamil or extract Tanglish text directly from uploaded images using in-browser OCR.
+            </p>
+        </div>
+
+        <div class="grid gap-8 lg:grid-cols-2">
+            <!-- Left Panel: Text input and translation -->
+            <section class="glass-card p-6 flex flex-col justify-between">
+                <div>
+                    <div class="flex items-center justify-between mb-6">
+                        <h2 class="text-xl font-bold text-slate-900 flex items-center gap-2">
+                            <svg class="w-5 h-5 text-deepMaroon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5c-.313 1.565-.956 3.167-1.85 4.75m-.013 0A14.53 14.53 0 018 9.5c.34-2.117.82-4.041 1.272-5.5h1.492c.28 1.156.51 2.302.518 3.5v.75z"></path></svg>
+                            Direct Transliterator
+                        </h2>
+                        <span class="text-xs font-bold text-deepMaroon bg-rose-50 border border-rose-100 px-2.5 py-1 rounded-full uppercase">Manual Input</span>
+                    </div>
+
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2" for="tanglishInput">Type Tanglish Here</label>
+                            <textarea id="tanglishInput" class="w-full rounded-2xl border border-slate-200 bg-white/90 p-4 text-lg font-medium text-slate-800 placeholder-slate-400 shadow-inner focus:border-deepMaroon focus:ring-1 focus:ring-deepMaroon focus:outline-none" rows="5" placeholder="e.g. vanakam makkale, naalaiku vanga"></textarea>
+                        </div>
+
+                        <div class="flex justify-end">
+                            <button id="translateBtn" class="bg-deepMaroon hover:bg-slate-900 text-white font-bold px-6 py-3 rounded-xl shadow-md transition-all flex items-center gap-2">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                                Translate to Tamil
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-8 border-t border-slate-100 pt-6">
+                    <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Tamil Unicode Output</label>
+                    <div id="tamilOutput" class="min-h-[120px] rounded-2xl bg-emerald-50/70 border border-emerald-100 p-5 font-tamil text-2xl font-black leading-relaxed text-slate-900 select-all whitespace-pre-wrap"></div>
+                    
+                    <div class="mt-4 flex gap-3">
+                        <button id="copyBtn" class="flex-1 bg-white hover:bg-slate-50 border border-slate-200 text-slate-700 font-bold py-2.5 rounded-xl text-sm transition flex items-center justify-center gap-2">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path></svg>
+                            Copy Result
+                        </button>
+                        <button id="downloadBtn" class="flex-1 bg-white hover:bg-slate-50 border border-slate-200 text-slate-700 font-bold py-2.5 rounded-xl text-sm transition flex items-center justify-center gap-2">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                            Download Text
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Right Panel: Image OCR upload and translation -->
+            <section class="glass-card p-6 flex flex-col justify-between">
+                <div>
+                    <div class="flex items-center justify-between mb-6">
+                        <h2 class="text-xl font-bold text-slate-900 flex items-center gap-2">
+                            <svg class="w-5 h-5 text-deepMaroon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                            Image OCR Reader
+                        </h2>
+                        <span class="text-xs font-bold text-deepMaroon bg-rose-50 border border-rose-100 px-2.5 py-1 rounded-full uppercase">Image Upload</span>
+                    </div>
+
+                    <div class="space-y-4">
+                        <label class="upload-zone rounded-2xl p-6 flex flex-col items-center justify-center min-h-[160px] text-center" id="dropZone">
+                            <input type="file" id="imageInput" class="sr-only" accept="image/*">
+                            <svg class="w-10 h-10 text-deepMaroon mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
+                            <p class="font-bold text-slate-800">Drag & drop your image here</p>
+                            <p class="text-xs text-slate-400 mt-1">or click to browse from files (PNG, JPG, JPEG)</p>
+                        </label>
+
+                        <div id="imagePreviewContainer" class="hidden rounded-2xl border border-slate-100 bg-white p-3 shadow-inner">
+                            <div class="flex items-center gap-3 justify-between mb-2">
+                                <span id="fileName" class="text-xs font-bold text-slate-500 truncate max-w-[80%]">image.png</span>
+                                <button id="removeImageBtn" class="text-xs font-bold text-red-500 hover:text-red-700">Remove</button>
+                            </div>
+                            <img id="imagePreview" class="max-h-[180px] w-full object-contain rounded-xl" src="" alt="Selected Preview">
+                        </div>
+
+                        <div class="flex justify-end">
+                            <button id="ocrBtn" class="bg-deepMaroon hover:bg-slate-900 text-white font-bold px-6 py-3 rounded-xl shadow-md transition-all flex items-center gap-2" disabled>
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                                Extract & Transliterate
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-8 border-t border-slate-100 pt-6">
+                    <div id="statusIndicator" class="hidden mb-3 text-xs font-bold text-deepMaroon animate-pulse flex items-center gap-2">
+                        <span class="inline-block w-2.5 h-2.5 rounded-full bg-deepMaroon"></span>
+                        <span id="statusText">Running local OCR...</span>
+                    </div>
+                    
+                    <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Recognized Tanglish Text</label>
+                    <div id="ocrOutput" class="min-h-[80px] rounded-2xl bg-white border border-slate-150 p-4 font-mono text-sm text-slate-700 whitespace-pre-wrap select-all"></div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Loading Tesseract.js from CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
+    <script>
+        const tanglishInput = document.getElementById("tanglishInput");
+        const translateBtn = document.getElementById("translateBtn");
+        const tamilOutput = document.getElementById("tamilOutput");
+        const copyBtn = document.getElementById("copyBtn");
+        const downloadBtn = document.getElementById("downloadBtn");
+
+        const imageInput = document.getElementById("imageInput");
+        const dropZone = document.getElementById("dropZone");
+        const imagePreviewContainer = document.getElementById("imagePreviewContainer");
+        const imagePreview = document.getElementById("imagePreview");
+        const fileName = document.getElementById("fileName");
+        const removeImageBtn = document.getElementById("removeImageBtn");
+        const ocrBtn = document.getElementById("ocrBtn");
+        const ocrOutput = document.getElementById("ocrOutput");
+        const statusIndicator = document.getElementById("statusIndicator");
+        const statusText = document.getElementById("statusText");
+
+        // 1) Translate Text
+        async function translateText(text) {
+            if (!text.trim()) return "";
+            try {
+                const resp = await fetch("https://magicloops.dev/api/loop/cfea40be-57cc-4495-ae35-9712d9d52af8/run", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ tanglishText: text })
+                });
+                if (resp.ok) {
+                    const data = await resp.json();
+                    return data.tamilText || "";
+                }
+            } catch (err) {
+                console.error("Magic Loops translation error:", err);
+            }
+            return "";
+        }
+
+        translateBtn.addEventListener("click", async () => {
+            const text = tanglishInput.value.trim();
+            if (!text) return alert("Please type some Tanglish text first");
+
+            translateBtn.disabled = true;
+            const originalText = translateBtn.innerHTML;
+            translateBtn.innerHTML = `<svg class="animate-spin h-5 w-5 mr-3 text-white inline-block" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> Translating...`;
+            tamilOutput.textContent = "";
+
+            const output = await translateText(text);
+            tamilOutput.textContent = output || "Error or no response from serverless loop.";
+            
+            translateBtn.disabled = false;
+            translateBtn.innerHTML = originalText;
+        });
+
+        // Copy / Download handlers
+        copyBtn.addEventListener("click", async () => {
+            const text = tamilOutput.textContent.trim();
+            if (!text) return;
+            await navigator.clipboard.writeText(text);
+            const originalText = copyBtn.innerHTML;
+            copyBtn.innerHTML = `<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Copied!`;
+            setTimeout(() => { copyBtn.innerHTML = originalText; }, 1500);
+        });
+
+        downloadBtn.addEventListener("click", () => {
+            const text = tamilOutput.textContent.trim();
+            if (!text) return;
+            const blob = new Blob([text], { type: "text/plain;charset=utf-8" });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement("a");
+            a.href = url;
+            a.download = "tamil-transliteration.txt";
+            a.click();
+            URL.revokeObjectURL(url);
+        });
+
+        // 2) OCR Drag-and-Drop / Upload handling
+        function handleFileSelection(file) {
+            if (!file || !file.type.startsWith("image/")) {
+                alert("Please select a valid image file");
+                return;
+            }
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                imagePreview.src = e.target.result;
+                fileName.textContent = file.name;
+                imagePreviewContainer.classList.remove("hidden");
+                dropZone.classList.add("hidden");
+                ocrBtn.disabled = false;
+            };
+            reader.readAsDataURL(file);
+        }
+
+        imageInput.addEventListener("change", (e) => {
+            handleFileSelection(e.target.files[0]);
+        });
+
+        ["dragenter", "dragover"].forEach(name => {
+            dropZone.addEventListener(name, (e) => { e.preventDefault(); dropZone.classList.add("drag-active"); });
+        });
+        ["dragleave", "drop"].forEach(name => {
+            dropZone.addEventListener(name, (e) => { e.preventDefault(); dropZone.classList.remove("drag-active"); });
+        });
+        dropZone.addEventListener("drop", (e) => {
+            const file = e.dataTransfer.files[0];
+            if (file) {
+                imageInput.files = e.dataTransfer.files;
+                handleFileSelection(file);
+            }
+        });
+
+        removeImageBtn.addEventListener("click", () => {
+            imageInput.value = "";
+            imagePreview.src = "";
+            imagePreviewContainer.classList.add("hidden");
+            dropZone.classList.remove("hidden");
+            ocrBtn.disabled = true;
+            ocrOutput.textContent = "";
+            statusIndicator.classList.add("hidden");
+        });
+
+        // 3) Run Browser OCR + Auto Transliteration
+        ocrBtn.addEventListener("click", async () => {
+            const file = imageInput.files[0];
+            if (!file) return;
+
+            ocrBtn.disabled = true;
+            statusText.textContent = "Running browser-side OCR (Tesseract)...";
+            statusIndicator.classList.remove("hidden");
+            ocrOutput.textContent = "";
+
+            try {
+                // Initialize Tesseract recognize
+                const result = await Tesseract.recognize(file, "eng");
+                const recognizedText = (result.data.text || "").trim();
+                
+                if (!recognizedText) {
+                    ocrOutput.textContent = "No text detected in image.";
+                    statusIndicator.classList.add("hidden");
+                    ocrBtn.disabled = false;
+                    return;
+                }
+
+                ocrOutput.textContent = recognizedText;
+                
+                // Translate the recognized text automatically
+                statusText.textContent = "Translating recognized Tanglish to Tamil...";
+                const translated = await translateText(recognizedText);
+                
+                // Set the translated output to the left output panel and scroll there
+                tamilOutput.textContent = translated || "Could not translate text.";
+                tanglishInput.value = recognizedText;
+                
+                statusIndicator.classList.add("hidden");
+                
+                // Scroll down smoothly to show the translation
+                tamilOutput.scrollIntoView({ behavior: "smooth" });
+
+            } catch (err) {
+                console.error("Local OCR failed:", err);
+                ocrOutput.textContent = "Error running local OCR: " + err.message;
+                statusIndicator.classList.add("hidden");
+            }
+            ocrBtn.disabled = false;
+        });
+    </script>
+</body>
+</html>

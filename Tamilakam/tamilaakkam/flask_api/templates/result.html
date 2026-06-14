@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="ta">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>தமிழாக்கம் | முடிவு</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        tamilBlue: "#1d4ed8",
+                        templeGold: "#f59e0b",
+                        lotusPink: "#ec4899",
+                        palmGreen: "#16a34a",
+                        deepMaroon: "#8b1e3f"
+                    },
+                    fontFamily: {
+                        sans: ["Noto Sans Tamil", "Inter", "ui-sans-serif", "system-ui"],
+                        tamil: ["Noto Sans Tamil", "Latha", "sans-serif"]
+                    }
+                }
+            }
+        };
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+Tamil:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="../static/css/style.css">
+</head>
+
+<body class="min-h-screen text-slate-950">
+    <div class="page-pattern" aria-hidden="true"></div>
+
+    <nav class="sticky top-0 z-50 border-b border-white/60 bg-white/82 shadow-sm backdrop-blur-xl">
+        <div class="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 lg:px-8">
+            <a href="index.html" class="flex items-center gap-3">
+                <span class="brand-mark">த</span>
+                <span>
+                    <span class="block text-lg font-extrabold text-slate-950">தமிழாக்கம்</span>
+                    <span class="block text-xs font-bold text-deepMaroon">Tanglish to Tamil</span>
+                </span>
+            </a>
+
+            <button class="menu-toggle rounded-xl border border-slate-200 bg-white/80 p-2 text-slate-700 lg:hidden"
+                aria-label="மெனுவை திறக்க" aria-expanded="false">
+                <i data-lucide="menu"></i>
+            </button>
+
+            <div class="nav-links hidden items-center gap-2 lg:flex">
+                <a class="nav-link" href="index.html">முகப்பு</a>
+                <a class="nav-link" href="upload.html">பதிவேற்று</a>
+                <a class="nav-link" href="result.html">முடிவு</a>
+                <a class="nav-link" href="about.html">பற்றி</a>
+            </div>
+        </div>
+        <div class="mobile-menu hidden border-t border-slate-100 bg-white px-5 pb-4 lg:hidden">
+            <a class="mobile-link" href="index.html">முகப்பு</a>
+            <a class="mobile-link" href="upload.html">படம் பதிவேற்று</a>
+            <a class="mobile-link" href="result.html">முடிவு</a>
+            <a class="mobile-link" href="about.html">திட்டம் பற்றி</a>
+        </div>
+    </nav>
+
+    <main>
+        <section class="mx-auto max-w-7xl px-5 py-14 lg:px-8">
+            <div class="mb-8 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+                <div>
+                    <p class="text-sm font-black uppercase text-deepMaroon">மாற்றத்தின் முடிவு</p>
+                    <h1 class="mt-2 text-4xl font-black text-slate-950">தமிழ் Unicode உரை தயாராக உள்ளது</h1>
+                </div>
+                <a href="upload.html" class="btn-secondary w-fit"><i data-lucide="rotate-ccw" class="h-5 w-5"></i> புதிய
+                    உள்ளீடு</a>
+            </div>
+
+            <div id="ocrStatus"
+                class="mb-6 hidden rounded-2xl border border-amber-200 bg-amber-50 px-5 py-4 text-sm font-bold text-deepMaroon"
+                data-value="{{ ocr_error }}"></div>
+
+            <div class="grid gap-6 lg:grid-cols-[0.9fr_1.1fr]">
+                <article class="glass-card p-5">
+                    <div class="mb-4 flex items-center justify-between gap-4">
+                        <h2 class="text-xl font-black text-slate-950">பட முன்னோட்டம்</h2>
+                        <span class="rounded-full bg-amber-100 px-3 py-1 text-xs font-black text-deepMaroon"
+                            id="imageName" data-value="{{ image_name }}"></span>
+                    </div>
+                    <div class="rounded-2xl border border-amber-100 bg-white/90 p-4 shadow-inner">
+                        <img class="h-[430px] w-full rounded-xl object-contain" id="resultImage" src=""
+                            data-value="{{ image_url }}" alt="பதிவேற்றிய ஆவண முன்னோட்டம்">
+                    </div>
+                </article>
+
+                <article class="glass-card p-5">
+                    <div class="mb-5 flex items-center justify-between">
+                        <h2 class="text-xl font-black text-slate-950">மாற்றிய உரை</h2>
+                        <i data-lucide="text-select" class="text-deepMaroon"></i>
+                    </div>
+
+                    <div class="space-y-5">
+                        <div class="result-card">
+                            <p class="text-sm font-black uppercase text-slate-500">பட உரை அடையாளம் / தங்க்லீஷ் உள்ளீடு
+                            </p>
+                            <p class="mt-3 text-lg font-bold leading-8 text-slate-800" id="tanglishOutput"
+                                data-value="{{ tanglish_text }}"></p>
+                        </div>
+
+                        <div class="result-card border-emerald-200 bg-emerald-50/85">
+                            <p class="text-sm font-black uppercase text-emerald-700">தமிழ் யூனிக்கோட் வெளியீடு</p>
+                            <p class="font-tamil mt-3 text-3xl font-black leading-relaxed text-slate-950"
+                                id="tamilOutput" data-value="{{ tamil_text }}"></p>
+                        </div>
+
+                        <div class="flex flex-col gap-3 sm:flex-row">
+                            <button class="btn-primary" type="button" data-copy-target="tamilOutput">
+                                <i data-lucide="copy" class="h-5 w-5"></i>
+                                தமிழ் உரையை நகலெடு
+                            </button>
+                            <button class="btn-secondary" type="button" id="downloadText">
+                                <i data-lucide="download" class="h-5 w-5"></i>
+                                TXT பதிவிறக்கம்
+                            </button>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </section>
+    </main>
+
+    <footer class="border-t border-white/70 bg-white/86 backdrop-blur">
+        <div
+            class="mx-auto flex max-w-7xl flex-col gap-4 px-5 py-8 text-sm font-semibold text-slate-700 md:flex-row md:items-center md:justify-between lg:px-8">
+            <p>தமிழாக்கம் - OCR மற்றும் எழுத்துமாற்ற மினி திட்டம்</p>
+            <div class="flex flex-wrap items-center gap-4">
+                <span class="font-tamil text-deepMaroon">தமிழ் Unicode</span>
+                <span>Flask, Tailwind CSS, JavaScript மூலம் உருவாக்கப்பட்டது</span>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="../static/js/main.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const applyValue = (id, target = "text") => {
+                const element = document.getElementById(id);
+                if (!element) return;
+                const value = element.dataset.value || "";
+                if (!value || value.includes("{" + "{")) return;
+                if (target === "src") {
+                    element.src = value;
+                } else {
+                    element.textContent = value;
+                }
+            };
+
+            applyValue("imageName");
+            applyValue("resultImage", "src");
+            applyValue("tanglishOutput");
+            applyValue("tamilOutput");
+
+            const status = document.getElementById("ocrStatus");
+            if (status && status.dataset.value && !status.dataset.value.includes("{" + "{")) {
+                status.textContent = status.dataset.value;
+                status.classList.remove("hidden");
+            }
+        });
+    </script>
+</body>
+
+</html>
