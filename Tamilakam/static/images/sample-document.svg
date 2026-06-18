@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="640" viewBox="0 0 900 640" role="img" aria-label="Sample uploaded document">
+  <rect width="900" height="640" rx="32" fill="#eff6ff"/>
+  <rect x="110" y="64" width="680" height="512" rx="28" fill="#ffffff" stroke="#bfdbfe" stroke-width="4"/>
+  <rect x="156" y="112" width="260" height="22" rx="11" fill="#2563eb" opacity="0.9"/>
+  <rect x="156" y="162" width="470" height="18" rx="9" fill="#94a3b8" opacity="0.65"/>
+  <rect x="156" y="214" width="520" height="22" rx="11" fill="#0f172a" opacity="0.78"/>
+  <rect x="156" y="270" width="420" height="22" rx="11" fill="#0f172a" opacity="0.65"/>
+  <rect x="156" y="326" width="500" height="22" rx="11" fill="#0f172a" opacity="0.72"/>
+  <text x="156" y="425" fill="#1d4ed8" font-size="44" font-family="Arial, sans-serif" font-weight="700">Vanakkam Tamilakam</text>
+  <text x="156" y="496" fill="#111827" font-size="42" font-family="Latha, Noto Sans Tamil, Arial" font-weight="700">வணக்கம் தமிழகம்</text>
+  <circle cx="721" cy="131" r="34" fill="#f2b84b" opacity="0.82"/>
+</svg>

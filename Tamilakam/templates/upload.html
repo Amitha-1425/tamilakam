@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="ta">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>தமிழாக்கம் | பதிவேற்று</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        tamilBlue: "#1d4ed8",
+                        templeGold: "#f59e0b",
+                        lotusPink: "#ec4899",
+                        palmGreen: "#16a34a",
+                        deepMaroon: "#8b1e3f"
+                    },
+                    fontFamily: {
+                        sans: ["Noto Sans Tamil", "Inter", "ui-sans-serif", "system-ui"],
+                        tamil: ["Noto Sans Tamil", "Latha", "sans-serif"]
+                    }
+                }
+            }
+        };
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+Tamil:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../static/css/style.css">
+</head>
+<body class="min-h-screen text-slate-950">
+    <div class="page-pattern" aria-hidden="true"></div>
+
+    <nav class="sticky top-0 z-50 border-b border-white/60 bg-white/82 shadow-sm backdrop-blur-xl">
+        <div class="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 lg:px-8">
+            <a href="index.html" class="flex items-center gap-3">
+                <span class="brand-mark">த</span>
+                <span>
+                    <span class="block text-lg font-extrabold text-slate-950">தமிழாக்கம்</span>
+                    <span class="block text-xs font-bold text-deepMaroon">Tanglish to Tamil</span>
+                </span>
+            </a>
+
+            <button class="menu-toggle rounded-xl border border-slate-200 bg-white/80 p-2 text-slate-700 lg:hidden" aria-label="மெனுவை திறக்க" aria-expanded="false">
+                <i data-lucide="menu"></i>
+            </button>
+
+            <div class="nav-links hidden items-center gap-2 lg:flex">
+                <a class="nav-link" href="index.html">முகப்பு</a>
+                <a class="nav-link" href="upload.html">பதிவேற்று</a>
+                <a class="nav-link" href="result.html">முடிவு</a>
+                <a class="nav-link" href="about.html">பற்றி</a>
+            </div>
+        </div>
+        <div class="mobile-menu hidden border-t border-slate-100 bg-white px-5 pb-4 lg:hidden">
+            <a class="mobile-link" href="index.html">முகப்பு</a>
+            <a class="mobile-link" href="upload.html">படம் பதிவேற்று</a>
+            <a class="mobile-link" href="result.html">முடிவு</a>
+            <a class="mobile-link" href="about.html">திட்டம் பற்றி</a>
+        </div>
+    </nav>
+
+    <main>
+        
+<section class="mx-auto max-w-6xl px-5 py-14 lg:px-8">
+    <div class="mb-8 text-center">
+        <p class="text-sm font-black uppercase text-deepMaroon">படம் அல்லது உரை உள்ளீடு</p>
+        <h1 class="mt-2 text-4xl font-black text-slate-950 sm:text-5xl">Tanglish உரையை தமிழாக மாற்றுங்கள்</h1>
+        <p class="mx-auto mt-4 max-w-2xl font-semibold leading-7 text-slate-700">PNG, JPG, JPEG படத்தை பதிவேற்றலாம். உடனடி மாற்றத்திற்காக கீழே Tanglish உரையையும் தட்டச்சு செய்யலாம்.</p>
+    </div>
+
+    <form class="glass-card mx-auto max-w-4xl p-5 sm:p-8 space-y-6" action="result.html" method="GET" enctype="multipart/form-data" id="uploadForm" data-server-action="/upload">
+        <!-- Hidden Input to track task type -->
+        <input type="hidden" name="task_type" id="taskTypeInput" value="tanglish_ocr">
+
+        <!-- Tab Controls -->
+        <div class="flex flex-col sm:flex-row gap-2 p-1.5 rounded-2xl bg-orange-50/80 border border-amber-200/40 backdrop-blur-md">
+            <button type="button" id="tab-text_translation" class="flex-1 rounded-xl py-3 px-4 text-sm font-black transition-all duration-200 flex items-center justify-center gap-2">
+                <i data-lucide="languages" class="h-4 w-4"></i>
+                உரை மொழிபெயர்ப்பு
+            </button>
+            <button type="button" id="tab-tanglish_ocr" class="flex-1 rounded-xl py-3 px-4 text-sm font-black transition-all duration-200 flex items-center justify-center gap-2">
+                <i data-lucide="scan-text" class="h-4 w-4"></i>
+                Tanglish OCR + மொழிபெயர்ப்பு
+            </button>
+            <button type="button" id="tab-general_ocr" class="flex-1 rounded-xl py-3 px-4 text-sm font-black transition-all duration-200 flex items-center justify-center gap-2">
+                <i data-lucide="scan-line" class="h-4 w-4"></i>
+                பொது OCR (உரை கண்டறி)
+            </button>
+        </div>
+
+        <label class="upload-zone" for="imageInput" id="dropZone">
+            <input class="sr-only" id="imageInput" name="image" type="file" accept=".png,.jpg,.jpeg,image/png,image/jpeg">
+            <span class="grid h-16 w-16 place-items-center rounded-2xl bg-deepMaroon text-white shadow-lg shadow-rose-200">
+                <i data-lucide="cloud-upload" class="h-8 w-8"></i>
+            </span>
+            <span class="mt-5 text-xl font-black text-slate-950">படத்தை இங்கே இழுத்து விடுங்கள்</span>
+            <span class="mt-2 text-sm font-bold text-slate-500">அல்லது PNG, JPG, JPEG கோப்பை தேர்வு செய்ய கிளிக் செய்யவும்</span>
+        </label>
+
+        <div class="mt-6" id="textInputGroup">
+            <label class="mb-2 block text-sm font-black uppercase text-deepMaroon" for="tanglishText">Tanglish உரை</label>
+            <textarea class="text-input" id="tanglishText" name="tanglish_text" rows="5" placeholder="உதா: Vanakkam Tamilakam. Namma mozhi nam perumai."></textarea>
+        </div>
+
+        <div class="mt-6 hidden grid-cols-1 gap-6 md:grid-cols-[0.9fr_1.1fr]" id="previewPanel">
+            <div class="rounded-2xl border border-amber-100 bg-white p-3 shadow-sm">
+                <img class="h-72 w-full rounded-xl object-contain" id="imagePreview" alt="பதிவேற்றிய பட முன்னோட்டம்">
+            </div>
+            <div class="rounded-2xl bg-amber-50 p-6">
+                <div class="flex items-center gap-3">
+                    <i data-lucide="file-check-2" class="text-deepMaroon"></i>
+                    <div>
+                        <p class="text-sm font-black text-deepMaroon">தேர்ந்தெடுத்த கோப்பு</p>
+                        <p class="break-all text-lg font-black text-slate-950" id="fileName">image.jpg</p>
+                    </div>
+                </div>
+                <div class="mt-6 rounded-2xl bg-white p-4 shadow-sm">
+                    <p class="text-sm font-black text-slate-500">செயலாக்க படிகள்</p>
+                    <div class="mt-4 space-y-3 text-sm font-bold text-slate-700">
+                        <div class="flex items-center gap-3"><span class="step-dot"></span> OCR உரை அடையாளம்</div>
+                        <div class="flex items-center gap-3"><span class="step-dot"></span> Tanglish சீரமைப்பு</div>
+                        <div class="flex items-center gap-3"><span class="step-dot"></span> தமிழ் Unicode உருவாக்கம்</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-8 flex justify-center">
+            <button class="btn-primary disabled:cursor-not-allowed disabled:opacity-60" id="convertButton" type="submit" disabled>
+                <span class="button-label flex items-center gap-2"><i data-lucide="wand-sparkles" class="h-5 w-5"></i> தமிழாக்கம் செய்</span>
+                <span class="button-loading hidden items-center gap-2"><span class="loader"></span> மாற்றம் நடைபெறுகிறது</span>
+            </button>
+        </div>
+    </form>
+</section>
+
+    </main>
+
+    <footer class="border-t border-white/70 bg-white/86 backdrop-blur">
+        <div class="mx-auto flex max-w-7xl flex-col gap-4 px-5 py-8 text-sm font-semibold text-slate-700 md:flex-row md:items-center md:justify-between lg:px-8">
+            <p>தமிழாக்கம் - OCR மற்றும் எழுத்துமாற்ற மினி திட்டம்</p>
+            <div class="flex flex-wrap items-center gap-4">
+                <span class="font-tamil text-deepMaroon">தமிழ் Unicode</span>
+                <span>Flask, Tailwind CSS, JavaScript மூலம் உருவாக்கப்பட்டது</span>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="../static/js/main.js"></script>
+</body>
+</html>
